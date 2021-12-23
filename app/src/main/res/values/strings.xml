@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">管理系统</string>
+    <!--LoginActivity-->
+    <string name="welcome_message1">实验室设备管理系统</string>
+    <string name="welcome_message2">Labs Management System</string>
+
+    <!--MainActivity-->
+    <string name="activity1">实 验 室 信 息 管 理</string>
+    <string name="activity2">设 备 信 息 管 理</string>
+    <string name="activity3">开 发 中…</string>
+    <string name="activity4">开 发 中…</string>
+    <string name="title_activity_lab">LabActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+</resources>

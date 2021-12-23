@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/more1"
+        android:title="查找/删除"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/more2"
+        android:title="添加/修改"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/more3"
+        android:title="报损"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/more4"
+        android:title="统计"
+        app:showAsAction="never" />
+</menu>

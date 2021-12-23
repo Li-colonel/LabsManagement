@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/equi_id"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="设备ID"
+        android:layout_width="0dp"
+        android:layout_height="30dp" />
+    <TextView
+        android:id="@+id/equi_lab"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="所属实验室"
+        android:layout_width="0dp"
+        android:layout_height="30dp" />
+    <TextView
+        android:id="@+id/equi_type"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="类型"
+        android:layout_width="0dp"
+        android:layout_height="30dp" />
+    <TextView
+        android:id="@+id/equi_state"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="状态"
+        android:layout_width="0dp"
+        android:layout_height="30dp" />
+</LinearLayout>

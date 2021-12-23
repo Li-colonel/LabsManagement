@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="morandi_blue1">#FFC1CBD7</color>
+    <color name="morandi_blue2">#FF9CA8B8</color>
+    <color name="morandi_blue3">#FF8696a7</color>
+
+    <color name="blueviolet">#8a2be2</color> <!-- 紫罗兰蓝色 -->
+    <color name="lightskyblue">#87cefa</color> <!-- 亮天蓝色 -->
+    <color name="skyblue">#87ceeb</color> <!-- 天蓝色 -->
+    <color name="royalblue">#4169E1</color><!--皇家蓝 -->
+
+    <color name="mediumslateblue">#7b68ee</color> <!-- 中暗蓝色 -->
+    <color name="lightslategrey">#778899</color> <!-- 亮蓝灰 -->
+
+    <color name="forestgreen">#228b22</color><!--森林绿 -->
+    <color name="lightcoral">#f08080</color><!--亮珊瑚色 -->
+
+    <color name="darkturquoise">#00ced1</color><!--暗宝石绿 -->
+    <color name="deepskyblue">#00bfff</color><!--深天蓝色 -->
+    <color name="navy">#000080</color><!--海军色 -->
+
+    <color name="lightwhite">#DCDCDC</color>
+</resources>

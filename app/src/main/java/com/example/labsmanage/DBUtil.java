@@ -15,11 +15,14 @@ public class DBUtil {
     public Connection getSQLConnection() {
         Connection con = null;
 //        String connectionUrl = "jdbc:sqlserver://192.168.199.41:1433;databaseName=LABM;user=sa;password=dqy20010710";
-        String connectionUrl = "jdbc:jtds:sqlserver://47.98.176.113/" + "LABM" + ";charset=utf8";
+        //String connectionUrl = "jdbc:jtds:sqlserver://47.98.176.113/" + "LABM" + ";charset=utf8";
+//        String connectionUrl = "jdbc:mysql://47.98.176.113/" + "LABM" + ";charset=utf8";
+        String connectionUrl = "jdbc:mysql://47.98.176.113/LABM?characterEncoding=UTF-8";
         try {
 //            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDrive");
-            Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            con = DriverManager.getConnection(connectionUrl, "sa", "Dqy20010710");
+            //Class.forName("net.sourceforge.jtds.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection(connectionUrl, "pronhub", "dqy20010710");
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -31,9 +34,9 @@ public class DBUtil {
         try {
             Connection conn = getSQLConnection();//根据自己的数据库信息填写对应的值
             String sql = null;
-            if (ut == "学生登录")
+            if (ut.equals("学生登录"))
                 sql = "select * from Student_login where Sno='" + name + "' and  pass='" + pass + "'";
-            else if (ut == "教师登录")
+            else if (ut.equals("教师登录"))
                 sql = "select * from Teacher_login where Tno='" + name + "' and  pass='" + pass + "'";//加单引号！不然隐式转换会报错查询不出来
             Statement stat = conn.createStatement();
             ResultSet rs = stat.executeQuery(sql);
@@ -102,7 +105,7 @@ public class DBUtil {
             // 通过ResultSetMetaData获取结果集中的列数
             int columnCount = rsmd.getColumnCount();
             //创建集合对象
-            ArrayList<T> list = new ArrayList<T>();
+            ArrayList<T> list = new ArrayList<>();
             while (rs.next()) {
                 T t = clazz.newInstance();
                 // 处理结果集一行数据中的每一个列:给t对象指定的属性赋值

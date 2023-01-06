@@ -20,8 +20,8 @@ public class ExampleUnitTest {
 
     @Test
     public void test() {
-        String connectionUrl = "jdbc:sqlserver://10.72.70.78:1433;databaseName=LABM;user=sa;password=dqy20010710";
-        try (Connection con = DriverManager.getConnection(connectionUrl); Statement stmt = con.createStatement();) {
+        String connectionUrl = "jdbc:mysql://47.98.176.113:3306;databaseName=LABM;user=root;password=dqy20010710";
+        try (Connection con = DriverManager.getConnection(connectionUrl); Statement stmt = con.createStatement()) {
             String SQL = "SELECT TOP 10 * FROM Person.Contact";
             ResultSet rs = stmt.executeQuery(SQL);
 

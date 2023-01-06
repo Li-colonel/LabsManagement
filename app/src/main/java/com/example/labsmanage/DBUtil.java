@@ -68,7 +68,7 @@ public class DBUtil {
         }
         return result;
     }
-    public int viewSQL(String sql) {
+   /* public int viewSQL(String sql) {
         int result = 0;
         try {
             Connection conn = getSQLConnection();
@@ -83,7 +83,7 @@ public class DBUtil {
             e.printStackTrace();
         }
         return result;
-    }
+    }*/
 
     /**
      * @Description 使用PreparedStatement实现针对于不同表的通用的查询操作

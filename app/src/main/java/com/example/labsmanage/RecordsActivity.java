@@ -96,10 +96,10 @@ public class RecordsActivity extends AppCompatActivity {
         View view = View.inflate(RecordsActivity.this, R.layout.dialog_records_insert, null);
 
         // 获取布局中的控件
-        final EditText R_ID = (EditText) view.findViewById(R.id.R_id);
-        final EditText R_type= (EditText) view.findViewById(R.id.R_type);
-        final EditText R_date = (EditText) view.findViewById(R.id.R_date);
-        final Button btn = (Button) view.findViewById(R.id.btn_insert);
+        final EditText R_ID = view.findViewById(R.id.R_id);
+        final EditText R_type= view.findViewById(R.id.R_type);
+        final EditText R_date = view.findViewById(R.id.R_date);
+        final Button btn = view.findViewById(R.id.btn_insert);
 
         // 设置参数
         builder.setTitle("添加记录").setView(view);
@@ -119,7 +119,7 @@ public class RecordsActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             DBUtil db = new DBUtil();
-                            db.commonSQL("INSERT INTO records VALUES ( "+r_ID+",'"+r_type+"','"+r_date+"');");
+                            db.commonSQL("INSERT INTO records VALUES ( '"+r_ID+"','"+r_type+"','"+r_date+"');");
                             db.commonSQL("UPDATE equipments SET status ='"+ r_type +"' WHERE equiID='"+r_ID+ "';");
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
@@ -145,6 +145,8 @@ public class RecordsActivity extends AppCompatActivity {
         final TextView numRes= (TextView) view.findViewById(R.id.records_result);
         final Button btn = (Button) view.findViewById(R.id.btn_produce);
 
+        //TODO 来个handler来解决在子线程中更新UI的行为
+
         // 设置参数
         builder.setTitle("借出统计").setView(view);
 
@@ -162,7 +164,7 @@ public class RecordsActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             DBUtil db = new DBUtil();
-                            int res = db.produceSQL("EXEC getRecords '"+lab_ID+"','"+equi_type+"';");
+                            int res = db.produceSQL("CALL LABM.getRecords('"+lab_ID+"','"+equi_type+"');");
                             numRes.setText(res+"");
                         } catch (Exception e) {
                             // TODO Auto-generated catch block

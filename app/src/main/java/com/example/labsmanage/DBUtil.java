@@ -17,12 +17,12 @@ public class DBUtil {
 //        String connectionUrl = "jdbc:sqlserver://192.168.199.41:1433;databaseName=LABM;user=sa;password=dqy20010710";
         //String connectionUrl = "jdbc:jtds:sqlserver://47.98.176.113/" + "LABM" + ";charset=utf8";
 //        String connectionUrl = "jdbc:mysql://47.98.176.113/" + "LABM" + ";charset=utf8";
-        String connectionUrl = "jdbc:mysql://47.98.176.113/LABM?characterEncoding=UTF-8";
+        String connectionUrl = "jdbc:mysql://47.98.176.113/LABM?useSSL=false&characterEncoding=UTF-8";
         try {
 //            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDrive");
             //Class.forName("net.sourceforge.jtds.jdbc.Driver");
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(connectionUrl, "pronhub", "dqy20010710");
+            con = DriverManager.getConnection(connectionUrl, "pornhub", "dqy20010710");
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -52,7 +52,7 @@ public class DBUtil {
         return result;
     }
 
-    public int produceSQL(String sql) {
+    public int produceSQL(String sql) { //TODO
         int result = 0;
         try {
             Connection conn = getSQLConnection();//根据自己的数据库信息填写对应的值

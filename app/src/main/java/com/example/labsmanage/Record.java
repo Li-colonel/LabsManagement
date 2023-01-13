@@ -12,7 +12,7 @@ public class Record {
         this.date = date;
     }
 
-    // 无参构造方法
+    // 无参构造方法 ？？？
     public Record(){
     }
 

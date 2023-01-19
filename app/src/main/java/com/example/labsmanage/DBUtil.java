@@ -29,7 +29,7 @@ public class DBUtil {
         return con;
     }
 
-    public String QuerySQL(String name, String pass, String ut) {
+    public String LoginSQL(String name, String pass, String ut) {
         String result = "";
         try {
             Connection conn = getSQLConnection();//根据自己的数据库信息填写对应的值
@@ -52,7 +52,7 @@ public class DBUtil {
         return result;
     }
 
-    public int produceSQL(String sql) { //TODO
+    public int produceSQL(String sql) { //TODO 长连接？
         int result = 0;
         try {
             Connection conn = getSQLConnection();//根据自己的数据库信息填写对应的值
@@ -136,30 +136,30 @@ public class DBUtil {
 
 
     /**
-     *关闭资源操作
+     * 关闭资源操作
      */
-    public static void closeResource(Connection conn,Statement ps,ResultSet rs){
+    public static void closeResource(Connection conn, Statement ps, ResultSet rs) {
         try {
-            if(ps != null)
+            if (ps != null)
                 ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            if(conn != null)
+            if (conn != null)
                 conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            if(rs != null)
+            if (rs != null)
                 rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void commonSQL(String sql){
+    public void commonSQL(String sql) {
         try {
             Connection conn = getSQLConnection();//根据自己的数据库信息填写对应的值
             Statement stat = conn.createStatement();

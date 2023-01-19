@@ -5,13 +5,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 public class Adapter2 extends RecyclerView.Adapter<Adapter2.MyHolder> {
 
-    private List<Lab> mList;//数据源
+    private final List<Lab> mList;//数据源
 
     Adapter2(List<Lab> list) {
         mList = list;
@@ -38,14 +39,14 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.MyHolder> {
 
     //创建ViewHolder并返回，后续item布局里控件都是从ViewHolder中取出
     @Override
-    public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //将我们自定义的item布局转换为View
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_lab_item, parent, false);
         //将view传递给我们自定义的ViewHolder
-        MyHolder holder = new MyHolder(view);
         //返回这个MyHolder实体
-        return holder;
+        return new MyHolder(view);
     }
 
     //通过方法提供的ViewHolder，将数据绑定到ViewHolder中

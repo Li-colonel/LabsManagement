@@ -23,7 +23,7 @@
             android:name=".EquiActivity"
             android:theme="@style/Theme.EquiActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivityN">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

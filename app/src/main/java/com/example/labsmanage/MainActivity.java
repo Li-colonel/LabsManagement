@@ -1,15 +1,14 @@
 package com.example.labsmanage;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,10 +20,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setActivities() {
-        CardView cardAc1 = (CardView) findViewById(R.id.activity1);
-        CardView cardAc2 = (CardView) findViewById(R.id.activity2);
-        CardView cardAc3 = (CardView) findViewById(R.id.activity3);
-        CardView cardAc4 = (CardView) findViewById(R.id.activity4);
+        CardView cardAc1 = findViewById(R.id.activity1);
+        CardView cardAc2 = findViewById(R.id.activity2);
+        CardView cardAc3 = findViewById(R.id.activity3);
+        CardView cardAc4 = findViewById(R.id.activity4);
 
         cardAc1.setOnClickListener(v -> {
             Intent localIntent = new Intent();
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Intent localIntent = new Intent();
-                            localIntent.setClass(MainActivity.this, LoginActivity.class);
+                            localIntent.setClass(MainActivity.this, LoginActivityN.class);
                             MainActivity.this.startActivity(localIntent);
                         }
                     })

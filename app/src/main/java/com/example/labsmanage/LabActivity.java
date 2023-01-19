@@ -1,12 +1,5 @@
 package com.example.labsmanage;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,13 +9,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class LabActivity extends AppCompatActivity {
 
-    private List<Lab> labList = new ArrayList<>();
+    private final List<Lab> labList = new ArrayList<>();
     Adapter2 labAdapter = new Adapter2(labList);
 
     @Override
@@ -38,7 +38,7 @@ public class LabActivity extends AppCompatActivity {
 
         //recycleView
         upList();
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list_lab);
+        RecyclerView recyclerView = findViewById(R.id.list_lab);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(labAdapter);
@@ -92,9 +92,9 @@ public class LabActivity extends AppCompatActivity {
         View view = View.inflate(LabActivity.this, R.layout.dialog_lab_update, null);
 
         // 获取布局中的控件
-        final EditText LabID = (EditText) view.findViewById(R.id.lab_id);
-        final EditText LabManager = (EditText) view.findViewById(R.id.lab_manager);
-        final Button btn = (Button) view.findViewById(R.id.btn_update);
+        final EditText LabID = view.findViewById(R.id.lab_id);
+        final EditText LabManager = view.findViewById(R.id.lab_manager);
+        final Button btn = view.findViewById(R.id.btn_update);
 
         // 设置参数
         builder.setTitle("实验室负责人").setView(view);
@@ -105,17 +105,16 @@ public class LabActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 String labID = LabID.getText().toString().trim();
                 String labManager = LabManager.getText().toString().trim();
                 new Thread() {
+                    @Override
                     public void run() {
                         try {
                             DBUtil db = new DBUtil();
                             db.commonSQL("UPDATE labs SET " + "manager='" + labManager + "'WHERE labID='"
                                     + labID + "';");
                         } catch (Exception e) {
-                            // TODO Auto-generated catch block
                             e.printStackTrace();
                         }
                     }
@@ -129,6 +128,7 @@ public class LabActivity extends AppCompatActivity {
     // 更新recyclerview数据
     private void upList() {
         new Thread() {
+            @Override
             public void run() {
                 try {
                     labList.clear();
@@ -137,14 +137,13 @@ public class LabActivity extends AppCompatActivity {
                     String sql;
                     sql = "SELECT * FROM labs;";
                     labList.addAll(db.getForList(Lab.class, sql));
-                    runOnUiThread(new Runnable() {// 返回主线程，这样fresh才有效
+                    runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             labAdapter.notifyDataSetChanged();
                         }
                     });
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }

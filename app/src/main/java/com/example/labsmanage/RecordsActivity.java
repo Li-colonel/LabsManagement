@@ -1,12 +1,5 @@
 package com.example.labsmanage;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,13 +10,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class RecordsActivity extends AppCompatActivity {
 
-    private List<Record> recordList = new ArrayList<>();
+    private final List<Record> recordList = new ArrayList<>();
     Adapter3 recordAdapter = new Adapter3(recordList);
 
     @Override
@@ -39,7 +39,7 @@ public class RecordsActivity extends AppCompatActivity {
 
         //recycleView
         upList();
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list_record);
+        RecyclerView recyclerView = findViewById(R.id.list_record);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(recordAdapter);
@@ -97,7 +97,7 @@ public class RecordsActivity extends AppCompatActivity {
 
         // 获取布局中的控件
         final EditText R_ID = view.findViewById(R.id.R_id);
-        final EditText R_type= view.findViewById(R.id.R_type);
+        final EditText R_type = view.findViewById(R.id.R_type);
         final EditText R_date = view.findViewById(R.id.R_date);
         final Button btn = view.findViewById(R.id.btn_insert);
 
@@ -110,19 +110,18 @@ public class RecordsActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 String r_ID = R_ID.getText().toString().trim();
                 String r_type = R_type.getText().toString().trim();
                 String r_date = R_date.getText().toString().trim();
 
                 new Thread() {
+                    @Override
                     public void run() {
                         try {
                             DBUtil db = new DBUtil();
-                            db.commonSQL("INSERT INTO records VALUES ( '"+r_ID+"','"+r_type+"','"+r_date+"');");
-                            db.commonSQL("UPDATE equipments SET status ='"+ r_type +"' WHERE equiID='"+r_ID+ "';");
+                            db.commonSQL("INSERT INTO records VALUES ( '" + r_ID + "','" + r_type + "','" + r_date + "');");
+                            db.commonSQL("UPDATE equipments SET status ='" + r_type + "' WHERE equiID='" + r_ID + "';");
                         } catch (Exception e) {
-                            // TODO Auto-generated catch block
                             e.printStackTrace();
                         }
                     }
@@ -140,34 +139,37 @@ public class RecordsActivity extends AppCompatActivity {
         View view = View.inflate(RecordsActivity.this, R.layout.dialog_records_produce, null);
 
         // 获取布局中的控件
-        final EditText Lab_ID = (EditText) view.findViewById(R.id.lab_id);
-        final EditText Equi_type= (EditText) view.findViewById(R.id.equi_type);
-        final TextView numRes= (TextView) view.findViewById(R.id.records_result);
-        final Button btn = (Button) view.findViewById(R.id.btn_produce);
+        final EditText Lab_ID = view.findViewById(R.id.lab_id);
+        final EditText Equi_type = view.findViewById(R.id.equi_type);
+        final TextView numRes = view.findViewById(R.id.records_result);
+        final Button btn = view.findViewById(R.id.btn_produce);
 
-        //TODO 来个handler来解决在子线程中更新UI的行为
 
         // 设置参数
         builder.setTitle("借出统计").setView(view);
 
         // 创建对话框
         builder.create();
-        final AlertDialog dia = builder.show();
+        builder.show();
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 String lab_ID = Lab_ID.getText().toString().trim();
                 String equi_type = Equi_type.getText().toString().trim();
 
                 new Thread() {
+                    @Override
                     public void run() {
                         try {
                             DBUtil db = new DBUtil();
-                            int res = db.produceSQL("CALL LABM.getRecords('"+lab_ID+"','"+equi_type+"');");
-                            numRes.setText(res+"");
+                            int res = db.produceSQL("CALL LABM.getRecords('" + lab_ID + "','" + equi_type + "');");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    numRes.setText(String.valueOf(res));
+                                }
+                            });
                         } catch (Exception e) {
-                            // TODO Auto-generated catch block
                             e.printStackTrace();
                         }
                     }
@@ -180,6 +182,7 @@ public class RecordsActivity extends AppCompatActivity {
     // 更新recyclerview数据
     private void upList() {
         new Thread() {
+            @Override
             public void run() {
                 try {
                     recordList.clear();
@@ -195,7 +198,6 @@ public class RecordsActivity extends AppCompatActivity {
                         }
                     });
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }

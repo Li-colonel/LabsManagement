@@ -40,12 +40,12 @@ public class EquiActivity extends AppCompatActivity {
 
 
         //recycleView
-        upList();
         RecyclerView recyclerView = findViewById(R.id.list_equi);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(equiAdapter);
         equiAdapter.notifyDataSetChanged();
+        upList();
 
 
         //swipeRefreshLayout
@@ -94,6 +94,15 @@ public class EquiActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // 首次自动下拉更新
+    private void initRefresh(SwipeRefreshLayout swip){
+        swip.post(new Runnable() {
+            @Override
+            public void run() {
+                swip.setRefreshing(true);
+            }
+        });
+    }
     // 更新recyclerview数据
     private void upList() {
         new Thread() {

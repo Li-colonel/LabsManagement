@@ -84,7 +84,7 @@ public class LoginActivityN extends AppCompatActivity {
         }.start();
     }
 
-    //TODO 登录界面返回退出程序好像还是有点问题
+
     //onKeyDown 方法复写返回键
     private long firstTime = 0;
     @Override
@@ -92,7 +92,8 @@ public class LoginActivityN extends AppCompatActivity {
         long secondTime = System.currentTimeMillis();
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (secondTime - firstTime < 2000) {
-                System.exit(0);
+                // system.exit()方法会让系统以异常处理，会自动重启，恢复app，finish本身只finish当前activity，弹出历史栈下一个app
+                finish();
             } else {
                 Toast.makeText(LoginActivityN.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 firstTime = System.currentTimeMillis();

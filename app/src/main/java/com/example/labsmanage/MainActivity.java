@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             Intent localIntent = new Intent();
                             localIntent.setClass(MainActivity.this, LoginActivityN.class);
+                            // 这句话使得A跳到B时，清空活动栈(历史栈)，在活动B返回就可finish()以退出程序
+                            localIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             MainActivity.this.startActivity(localIntent);
                         }
                     })

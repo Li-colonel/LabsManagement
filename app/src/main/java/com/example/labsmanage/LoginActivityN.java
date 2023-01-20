@@ -57,10 +57,17 @@ public class LoginActivityN extends AppCompatActivity {
     }
 
     private void login(String no, String pw, String ut) {
+        Toast toastLogin = Toast.makeText(LoginActivityN.this, "正在尝试登录......", Toast.LENGTH_LONG);
         new Thread() {
             @Override
             public void run() {
                 try {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            toastLogin.show();
+                        }
+                    });
                     DBUtil db = new DBUtil();//调用数据库查询类
                     String ret = db.LoginSQL(no, pw, ut);//得到返回值
                     if (ret.equals("1"))//为1，页面跳转，登陆成功
@@ -71,11 +78,13 @@ public class LoginActivityN extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                toastLogin.cancel();
                                 Toast.makeText(LoginActivityN.this, "登录成功", Toast.LENGTH_SHORT).show();//显示提示框
                             }
                         });
                         return;
                     }
+                    toastLogin.cancel();
                     Toast.makeText(LoginActivityN.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();

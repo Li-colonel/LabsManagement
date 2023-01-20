@@ -24,6 +24,7 @@ public class LabActivity extends AppCompatActivity {
 
     private final List<Lab> labList = new ArrayList<>();
     Adapter2 labAdapter = new Adapter2(labList);
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class LabActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //recycleView
-        upList();
+//        upList();
         RecyclerView recyclerView = findViewById(R.id.list_lab);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -46,18 +47,20 @@ public class LabActivity extends AppCompatActivity {
 
 
         //swipeRefreshLayout
-        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.royalblue);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // Here refresh
                 upList();
-                Toast.makeText(LabActivity.this, "刷新了", Toast.LENGTH_SHORT).show();//显示提示框
-                swipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(LabActivity.this, "刷新了", Toast.LENGTH_SHORT).show();//显示提示
             }
         });
-
+        //监听下拉出现动画，但需要手动false，于是把false写进uplist里面，这样oncreate的时候可以手动写true然后uplist
+        //只是动画，不调用onRefresh
+        swipeRefreshLayout.setRefreshing(true);
+        upList();
     }
 
     // tool bar
@@ -141,6 +144,10 @@ public class LabActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             labAdapter.notifyDataSetChanged();
+                            // 实现了进入页面刷新的动画
+                            if (swipeRefreshLayout.isRefreshing()) {
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
                         }
                     });
                 } catch (Exception e) {

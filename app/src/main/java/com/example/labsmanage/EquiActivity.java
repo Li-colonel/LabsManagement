@@ -26,6 +26,7 @@ public class EquiActivity extends AppCompatActivity {
 
     private final List<Equi> equiList = new ArrayList<>();
     MyRecycleViewAdapter equiAdapter = new MyRecycleViewAdapter(equiList);
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,20 +46,23 @@ public class EquiActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(equiAdapter);
         equiAdapter.notifyDataSetChanged();
-        upList();
+//        upList();
 
 
         //swipeRefreshLayout
-        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.royalblue);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 upList();
                 Toast.makeText(EquiActivity.this, "刷新了", Toast.LENGTH_SHORT).show();//显示提示框
-                swipeRefreshLayout.setRefreshing(false);
             }
         });
+        //实现了进入页面刷新的动画
+        //TODO 待推广进入页面刷新动画
+        swipeRefreshLayout.setRefreshing(true);
+        upList();
     }
 
     // tool bar
@@ -94,15 +98,6 @@ public class EquiActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // 首次自动下拉更新
-    private void initRefresh(SwipeRefreshLayout swip){
-        swip.post(new Runnable() {
-            @Override
-            public void run() {
-                swip.setRefreshing(true);
-            }
-        });
-    }
     // 更新recyclerview数据
     private void upList() {
         new Thread() {
@@ -119,6 +114,10 @@ public class EquiActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             equiAdapter.notifyDataSetChanged();
+                            // 实现了进入页面刷新的动画
+                            if (swipeRefreshLayout.isRefreshing()) {
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
                         }
                     });
                 } catch (Exception e) {

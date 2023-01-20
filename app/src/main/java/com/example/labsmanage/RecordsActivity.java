@@ -25,6 +25,7 @@ public class RecordsActivity extends AppCompatActivity {
 
     private final List<Record> recordList = new ArrayList<>();
     Adapter3 recordAdapter = new Adapter3(recordList);
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class RecordsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //recycleView
-        upList();
+//        upList();
         RecyclerView recyclerView = findViewById(R.id.list_record);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -47,7 +48,7 @@ public class RecordsActivity extends AppCompatActivity {
 
 
         //swipeRefreshLayout
-        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.royalblue);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -55,9 +56,10 @@ public class RecordsActivity extends AppCompatActivity {
                 // Here refresh
                 upList();
                 Toast.makeText(RecordsActivity.this, "刷新了", Toast.LENGTH_SHORT).show();//显示提示框
-                swipeRefreshLayout.setRefreshing(false);
             }
         });
+        swipeRefreshLayout.setRefreshing(true);
+        upList();
 
     }
 
@@ -195,6 +197,9 @@ public class RecordsActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             recordAdapter.notifyDataSetChanged();
+                            if (swipeRefreshLayout.isRefreshing()) {
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
                         }
                     });
                 } catch (Exception e) {

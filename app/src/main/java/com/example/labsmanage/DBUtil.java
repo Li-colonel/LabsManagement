@@ -12,17 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBUtil {
+    //建立连接
     public Connection getSQLConnection() {
         Connection con = null;
-//        String connectionUrl = "jdbc:sqlserver://192.168.199.41:1433;databaseName=LABM;user=sa;password=dqy20010710";
-        //String connectionUrl = "jdbc:jtds:sqlserver://47.98.176.113/" + "LABM" + ";charset=utf8";
-//        String connectionUrl = "jdbc:mysql://47.98.176.113/" + "LABM" + ";charset=utf8";
-        String connectionUrl = "jdbc:mysql://47.98.176.113/LABM?useSSL=false&characterEncoding=UTF-8";
+        String connectionUrl = "jdbc:mysql://IP/DATABASE_NAME?useSSL=false&characterEncoding=UTF-8";
         try {
-//            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDrive");
-            //Class.forName("net.sourceforge.jtds.jdbc.Driver");
+            //加载驱动
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(connectionUrl, "pornhub", "dqy20010710");
+            con = DriverManager.getConnection(connectionUrl, "DATABASE_USER_NAME", "DATABASE_USER_PASSWORD");
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

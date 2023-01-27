@@ -15,11 +15,11 @@ public class DBUtil {
     //建立连接
     public Connection getSQLConnection() {
         Connection con = null;
-        String connectionUrl = "jdbc:mysql://IP/DATABASE_NAME?useSSL=false&characterEncoding=UTF-8";
+        String connectionUrl = "jdbc:mysql://47.98.176.113/LABM?useSSL=false&characterEncoding=UTF-8";
         try {
             //加载驱动
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(connectionUrl, "DATABASE_USER_NAME", "DATABASE_USER_PASSWORD");
+            con = DriverManager.getConnection(connectionUrl, "pornhub", "dqy20010710");
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

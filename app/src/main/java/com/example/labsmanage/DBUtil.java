@@ -10,16 +10,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class DBUtil {
+    //从properties中读取数据库信息,文件应放在根目录，否则应如下
+    ResourceBundle reader = ResourceBundle.getBundle("assets/dbconfig");
+
     //建立连接
     public Connection getSQLConnection() {
         Connection con = null;
-        String connectionUrl = "jdbc:mysql://47.98.176.113/LABM?useSSL=false&characterEncoding=UTF-8";
+        String connectionUrl = reader.getString("db.url");
+        String connectionUser = reader.getString("db.username");
+        String connectionPsw = reader.getString("db.password");
         try {
             //加载驱动
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection(connectionUrl, "pornhub", "dqy20010710");
+            con = DriverManager.getConnection(connectionUrl, connectionUser, connectionPsw);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

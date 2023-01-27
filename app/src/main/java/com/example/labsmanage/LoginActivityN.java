@@ -84,8 +84,13 @@ public class LoginActivityN extends AppCompatActivity {
                         });
                         return;
                     }
-                    toastLogin.cancel();
-                    Toast.makeText(LoginActivityN.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            toastLogin.cancel();
+                            Toast.makeText(LoginActivityN.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -96,6 +101,7 @@ public class LoginActivityN extends AppCompatActivity {
 
     //onKeyDown 方法复写返回键
     private long firstTime = 0;
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         long secondTime = System.currentTimeMillis();

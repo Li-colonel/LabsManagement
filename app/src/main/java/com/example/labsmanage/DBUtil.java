@@ -14,12 +14,10 @@ import java.util.List;
 public class DBUtil {
     public Connection getSQLConnection() {
         Connection con = null;
-//        String connectionUrl = "jdbc:sqlserver://192.168.199.41:1433;databaseName=LABM;user=sa;password=dqy20010710";
-        String connectionUrl = "jdbc:jtds:sqlserver://47.98.176.113/" + "LABM" + ";charset=utf8";
+        String connectionUrl = "jdbc:jtds:sqlserver://IP/" + "DATABASE_NAME" + ";charset=utf8";
         try {
-//            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDrive");
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            con = DriverManager.getConnection(connectionUrl, "sa", "Dqy20010710");
+            con = DriverManager.getConnection(connectionUrl, "USER_NAME", "USER_PASSWORD");
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
